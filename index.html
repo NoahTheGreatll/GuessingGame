@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: 80%;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .message {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+
+        <h1>Guess the Number Game</h1>
+        <p>I'm thinking of a number between 1 and 100.</p>
+        <input type="text" id="guess" placeholder="Enter your guess">
+        <button onclick="checkGuess()">Submit Guess</button>
+        <button onclick="refresh()">Refresh</button>
+        <div id="message" class="message"></div>
+    </div>
+</body>
+<footer>
+              
+    <img src="./images/NoahDollah1.png" alt="NoahDollah" width="500" height="433">
+</footer>
+
+
+<script>
+    // Variables
+    let secretNumber = Math.floor(Math.random() * 100) + 1;
+    let attempts = 0;
+
+    function refresh() {
+        window.location.reload();
+    }
+    function checkGuess() {
+        const guess = Number(document.getElementById('guess').value);
+        const messageElement = document.getElementById('message');
+        attempts++;
+        if (guess < 0 || guess > 100) {
+            messageElement.textContent = 'Im sorry to inform you but thats not 1-100';
+            messageElement.style.color = 'orange';
+        }
+        else if (guess === secretNumber) {
+            messageElement.textContent = `Congratulations! You guessed the number in ${attempts} attempts.`;
+            messageElement.style.color = 'green';
+        } else if (guess < secretNumber) {
+            messageElement.textContent = `Too low! Try again. You have guessed ${attempts} times`;
+            messageElement.style.color = 'red';
+        } else if (guess > secretNumber) {
+            messageElement.textContent = `Too high! Try again. You have guessed ${attempts} times`;
+            messageElement.style.color = 'red';
+        }
+    }
+</script>
+
+</html>
+
