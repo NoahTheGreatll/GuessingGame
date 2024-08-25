@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <script src=https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -76,6 +77,12 @@
     function refresh() {
         window.location.reload();
     }
+    const jsConfetti = new JSConfetti();
+    function celebrate() {
+        jsConfetti.addConfetti({
+            emojis: ['👍', '😂', '🎉', '🔥', '🥳', '😎', '👌', '💪', '🤩', '🦄', '💩'],
+        });
+    }
     function checkGuess() {
         const guess = Number(document.getElementById('guess').value);
         const messageElement = document.getElementById('message');
@@ -87,6 +94,10 @@
         else if (guess === secretNumber) {
             messageElement.textContent = `Congratulations! You guessed the number in ${attempts} attempts.`;
             messageElement.style.color = 'green';
+
+            setTimeout(() => {
+                celebrate();
+            }, 1000);
         } else if (guess < secretNumber) {
             messageElement.textContent = `Too low! Try again. You have guessed ${attempts} times`;
             messageElement.style.color = 'red';
