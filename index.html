@@ -54,7 +54,7 @@
 <body>
     <p style="text-align: left;">Made By Noah D</p> 
     <div class="container">
-
+        <h3 id="hs-t">High Score: loading...</h3>
         <h1>Guess the Number Game</h1>
         <p>I'm thinking of a number between 1 and 100.</p>
         <input type="text" id="guess" placeholder="Enter your guess">
@@ -73,6 +73,9 @@
     // Variables
     let secretNumber = Math.floor(Math.random() * 100) + 1;
     let attempts = 0;
+    let hs_t = document.getElementById('hs-t');
+    let hs = JSON.parse(localStorage.getItem("high_score"));
+    hs_t.innerText = `High Score: ${hs}`
 
     function refresh() {
         window.location.reload();
@@ -80,7 +83,7 @@
     const jsConfetti = new JSConfetti();
     function celebrate() {
         jsConfetti.addConfetti({
-            emojis: ['👍', '😂', '🎉', '🔥', '🥳', '😎', '👌', '💪', '🤩', '🦄', '💩', '🤫', '👑', '🍾', '🍩']
+            emojis: ['👍', '😂', '🎉', '🔥', '🥳', '😎', '👌', '💪', '🤩', '🦄', '💩', '🤫', '👑', '🍾', '🍩' ]
         });
     }
     function checkGuess() {
@@ -98,9 +101,17 @@
             setTimeout(() => {
                 celebrate();
             }, 1000);
+            if (attempts < hs)
+            {
+                localStorage.setItem("high_score", JSON.stringify(attempts));
+            }
+            setTimeout(() => {
+                refresh();
+            }, 3000);
         } else if (guess < secretNumber) {
             messageElement.textContent = `Too low! Try again. You have guessed ${attempts} times`;
             messageElement.style.color = 'red';
+        
         } else if (guess > secretNumber) {
             messageElement.textContent = `Too high! Try again. You have guessed ${attempts} times`;
             messageElement.style.color = 'red';
